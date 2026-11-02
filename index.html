@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر المحاكاة - تجربة GTM</title>
-
+    <title>متجر أوراش | AuraStore</title>
+    
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,43 +13,35 @@
     })(window,document,'script','dataLayer','GTM-WJRDWC4Z');</script>
     <!-- End Google Tag Manager -->
 
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: system-ui, sans-serif; padding: 20px; background-color: #f4f6f8; }
-        .card { background: white; padding: 20px; border-radius: 8px; max-width: 400px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 0 auto; }
-        button { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        .btn-view { background-color: #e0e0e0; color: #333; }
-        .btn-cart { background-color: #2196F3; color: white; }
-        .btn-buy { background-color: #4CAF50; color: white; }
-        .log-box { margin-top: 20px; padding: 10px; background: #222; color: #00ff00; font-family: monospace; border-radius: 5px; font-size: 13px; max-width: 400px; margin-left: auto; margin-right: auto; }
-    </style>
-</head>
-<body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJRDWC4Z"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
-    <div class="card">
-        <h2>قميص رياضي - متجر التجربة</h2>
-        <p>السعر: <strong>500 ج.م</strong></p>
-        <hr>
-        <button class="btn-view" onclick="trackViewItem()">عرض تفاصيل المنتج (view_item)</button>
-        <button class="btn-cart" onclick="trackAddToCart()">إضافة إلى السلة (add_to_cart)</button>
-        <button class="btn-buy" onclick="trackPurchase()">إتمام الشراء (purchase)</button>
-    </div>
-
-    <div class="log-box" id="logBox">> اضغط على أي زر لإرسال Event إلى Data Layer...</div>
-
-    <script>
-        function logEvent(eventName) {
-            document.getElementById('logBox').innerText = '> تم إرسال Event: ' + eventName + ' إلى dataLayer';
+        :root {
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --bg: #f8fafc;
+            --surface: #ffffff;
+            --text: #0f172a;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --success: #10b981;
         }
 
-        // 1. حدث عرض المنتج
-        function trackViewItem() {
-            window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({
-                'event': 'view_item',
-                'ecommerce': {
-                    'currency': 'EGP',
-                    'value': 500,
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
+
+        /* Navigation */
+        header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; }
+        .cart-badge { position: absolute; top: 0; right: 0; background: var(--primary); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
+
+        /* Container */
+        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+        .hero { text-align: center; margin-bottom: 3rem; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
+        .hero p { color: var(--text-light); }
+
+        /* Product Grid */
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-4
