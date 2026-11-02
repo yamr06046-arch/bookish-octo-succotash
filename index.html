@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر أوراش | AuraStore</title>
-    
+    <title>متجر أوراش التجريبي</title>
+
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
     new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -13,35 +13,73 @@
     })(window,document,'script','dataLayer','GTM-WJRDWC4Z');</script>
     <!-- End Google Tag Manager -->
 
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --bg: #f8fafc;
-            --surface: #ffffff;
-            --text: #0f172a;
-            --text-light: #64748b;
-            --border: #e2e8f0;
-            --success: #10b981;
+        body { font-family: sans-serif; background: #f3f4f6; margin: 0; padding: 20px; text-align: center; }
+        .header { background: #1e293b; color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
+        .products { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); width: 250px; }
+        .price { color: #2563eb; font-size: 20px; font-weight: bold; margin: 10px 0; }
+        button { width: 100%; padding: 10px; margin: 5px 0; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        .btn-view { background: #e2e8f0; color: #1e293b; }
+        .btn-cart { background: #2563eb; color: white; }
+        .btn-buy { background: #16a34a; color: white; }
+        .log-box { background: #0f172a; color: #22c55e; padding: 15px; border-radius: 8px; font-family: monospace; text-align: right; margin-top: 30px; }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WJRDWC4Z"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <div class="header">
+        <h1>🛒 متجر التجربة - AURA STORE</h1>
+        <p>انقر على الأزرار لاختبار إرسال الأحداث (Events) إلى GTM</p>
+    </div>
+
+    <div class="products">
+        <div class="card">
+            <h2>🎧 سماعة ذكية</h2>
+            <div class="price">1,200 ج.م</div>
+            <button class="btn-view" onclick="sendEvent('view_item', 'سماعة ذكية', 1200)">عرض التفاصيل</button>
+            <button class="btn-cart" onclick="sendEvent('add_to_cart', 'سماعة ذكية', 1200)">إضافة للسلة</button>
+            <button class="btn-buy" onclick="sendEvent('purchase', 'سماعة ذكية', 1200)">شراء الآن</button>
+        </div>
+
+        <div class="card">
+            <h2>⌚ ساعة رياضية</h2>
+            <div class="price">2,500 ج.م</div>
+            <button class="btn-view" onclick="sendEvent('view_item', 'ساعة رياضية', 2500)">عرض التفاصيل</button>
+            <button class="btn-cart" onclick="sendEvent('add_to_cart', 'ساعة رياضية', 2500)">إضافة للسلة</button>
+            <button class="btn-buy" onclick="sendEvent('purchase', 'ساعة رياضية', 2500)">شراء الآن</button>
+        </div>
+    </div>
+
+    <div class="log-box" id="logBox">> اضغط على أي زر لتتبع الأحداث...</div>
+
+    <script>
+        function sendEvent(eventName, productName, price) {
+            window.dataLayer = window.dataLayer || [];
+            
+            var payload = {
+                'event': eventName,
+                'ecommerce': {
+                    'currency': 'EGP',
+                    'value': price,
+                    'items': [{
+                        'item_name': productName,
+                        'price': price
+                    }]
+                }
+            };
+
+            if (eventName === 'purchase') {
+                payload.ecommerce.transaction_id = 'T_' + Math.floor(Math.random() * 100000);
+            }
+
+            window.dataLayer.push(payload);
+            document.getElementById('logBox').innerText = '> تم إرسال الحدث: ' + eventName + ' بنجاح للمنتج (' + productName + ')';
         }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Tajawal', sans-serif; }
-        body { background-color: var(--bg); color: var(--text); line-height: 1.6; }
-
-        /* Navigation */
-        header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
-        .cart-icon { position: relative; cursor: pointer; padding: 0.5rem; }
-        .cart-badge { position: absolute; top: 0; right: 0; background: var(--primary); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.75rem; display: flex; align-items: center; justify-content: center; }
-
-        /* Container */
-        .container { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
-        .hero { text-align: center; margin-bottom: 3rem; }
-        .hero h1 { font-size: 2.2rem; margin-bottom: 0.5rem; }
-        .hero p { color: var(--text-light); }
-
-        /* Product Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
-        .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
-        .card:hover { transform: translateY(-4
+    </script>
+</body>
+</html>
