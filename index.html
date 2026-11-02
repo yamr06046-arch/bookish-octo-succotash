@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صفحة تجربة جوجل تاق مانجر</title>
+    <title>متجر المحاكاة - تجربة GTM</title>
 
     <!-- Google Tag Manager -->
     <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -13,6 +13,15 @@
     })(window,document,'script','dataLayer','GTM-WJRDWC4Z');</script>
     <!-- End Google Tag Manager -->
 
+    <style>
+        body { font-family: system-ui, sans-serif; padding: 20px; background-color: #f4f6f8; }
+        .card { background: white; padding: 20px; border-radius: 8px; max-width: 400px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin: 0 auto; }
+        button { width: 100%; padding: 10px; margin-top: 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: bold; }
+        .btn-view { background-color: #e0e0e0; color: #333; }
+        .btn-cart { background-color: #2196F3; color: white; }
+        .btn-buy { background-color: #4CAF50; color: white; }
+        .log-box { margin-top: 20px; padding: 10px; background: #222; color: #00ff00; font-family: monospace; border-radius: 5px; font-size: 13px; max-width: 400px; margin-left: auto; margin-right: auto; }
+    </style>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -20,7 +29,27 @@
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
-    <h1>مرحباً بك في صفحة التجربة الخاصة بي!</h1>
-    <p>هذه صفحة بسيطة لاختبار ربط جوجل تاق مانجر بنجاح.</p>
-</body>
-</html>
+    <div class="card">
+        <h2>قميص رياضي - متجر التجربة</h2>
+        <p>السعر: <strong>500 ج.م</strong></p>
+        <hr>
+        <button class="btn-view" onclick="trackViewItem()">عرض تفاصيل المنتج (view_item)</button>
+        <button class="btn-cart" onclick="trackAddToCart()">إضافة إلى السلة (add_to_cart)</button>
+        <button class="btn-buy" onclick="trackPurchase()">إتمام الشراء (purchase)</button>
+    </div>
+
+    <div class="log-box" id="logBox">> اضغط على أي زر لإرسال Event إلى Data Layer...</div>
+
+    <script>
+        function logEvent(eventName) {
+            document.getElementById('logBox').innerText = '> تم إرسال Event: ' + eventName + ' إلى dataLayer';
+        }
+
+        // 1. حدث عرض المنتج
+        function trackViewItem() {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({
+                'event': 'view_item',
+                'ecommerce': {
+                    'currency': 'EGP',
+                    'value': 500,
